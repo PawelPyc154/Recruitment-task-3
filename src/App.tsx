@@ -8,7 +8,7 @@ import { OrderbookReject } from './models/OrderbookReject'
 import { OrderbookResponse } from './models/OrderbookResponse'
 
 const App = () => {
-  const { isLoading, error, data } = useQuery({
+  const { data } = useQuery({
     queryKey: 'orderbook',
     refetchInterval: 1000,
     queryFn: () =>
@@ -24,7 +24,7 @@ const App = () => {
         }),
   })
 
-  console.log(isLoading, error, data)
+  // console.log(isLoading, error, data)
   return (
     <Container>
       <Header />
