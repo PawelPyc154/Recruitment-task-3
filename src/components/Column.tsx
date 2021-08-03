@@ -1,12 +1,16 @@
 import React from 'react'
 import tw from 'twin.macro'
 
-import { ListItem } from './ListItem'
+import { List } from './List'
+import { OrderbookItem } from '../models/OrderbookItem'
 
-const Column = () => (
+interface ColumnProps {
+  list: OrderbookItem[]
+}
+const Column = ({ list }: ColumnProps) => (
   <Container>
     <Hedding>bio</Hedding>
-    <ListItem />
+    <List list={list} />
   </Container>
 )
 

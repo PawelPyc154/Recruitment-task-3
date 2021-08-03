@@ -1,6 +1,11 @@
 import React from 'react'
-import { List } from './List'
+import { OrderbookItem } from '../models/OrderbookItem'
 
-const ListItem = () => <List />
+const ListItem = ({ co, pa }: OrderbookItem) => (
+  <div>
+    {co}
+    {pa}
+  </div>
+)
 
 export { ListItem }

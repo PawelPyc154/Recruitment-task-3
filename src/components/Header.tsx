@@ -2,7 +2,7 @@ import React from 'react'
 import 'twin.macro'
 
 const Header = () => (
-  <header tw="bg-gray-700 text-white flex justify-between items-center py-2 px-4 text-sm">
+  <header tw="bg-gray-700 flex justify-between items-center py-2 px-4 text-sm">
     <div>select</div>
     <div>Spread: todo</div>
     <div tw="text-xs">

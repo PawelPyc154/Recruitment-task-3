@@ -48,7 +48,10 @@
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "import/prefer-default-export": "off",
+        "implicit-arrow-linebreak": "off",
         "react/prop-types": "off",
+        "function-paren-newline": "off",
+        "react/jsx-props-no-spreading": "off",
         "@typescript-eslint/no-use-before-define": "off",
         "max-len": [
             "off",
