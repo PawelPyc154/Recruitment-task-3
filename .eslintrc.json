@@ -52,6 +52,7 @@
         "react/prop-types": "off",
         "function-paren-newline": "off",
         "react/jsx-props-no-spreading": "off",
+        "react/jsx-one-expression-per-line": "off",
         "@typescript-eslint/no-use-before-define": "off",
         "max-len": [
             "off",
