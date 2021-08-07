@@ -49,7 +49,7 @@ const Header = ({ timestamp, currency, setCurrency, coin, setCoin }: HeaderProps
 
 export { Header }
 
-const Container = tw.header`bg-gray-600 flex justify-between items-center py-2 pr-4 pl-0 text-sm`
+const Container = tw.header`flex justify-between items-center py-2 pr-4 pl-0 text-sm border-b border-gray-200`
 const Wrapper = tw.div`text-xs flex flex-col justify-end text-right`
 const MaxRate = tw.div`text-green-500`
 const MinRate = tw.div`text-red-600`

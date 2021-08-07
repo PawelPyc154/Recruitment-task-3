@@ -24,6 +24,7 @@ const App = () => {
         }),
   })
   // console.log(error)
+
   const [currency, setCurrency] = useState('PLN')
   const [coin, setCoin] = useState('BTC')
   return (
@@ -52,5 +53,5 @@ const App = () => {
 
 export default App
 
-const Container = tw.main`bg-white mx-auto max-w-5xl mt-20 border border-gray-800 rounded-3xl overflow-hidden shadow-2xl`
-const Wrapper = tw.div`grid grid-cols-2 divide-x p-1  divide-gray-800`
+const Container = tw.main`bg-white mx-auto max-w-5xl lg:mt-20 rounded-xl overflow-hidden shadow-2xl border border-gray-200`
+const Wrapper = tw.div`grid lg:grid-cols-2 divide-x divide-gray-200`
