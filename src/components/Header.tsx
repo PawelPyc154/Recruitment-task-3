@@ -1,16 +1,21 @@
 // import axios from 'axios'
 import axios from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query'
-import 'twin.macro'
+import tw from 'twin.macro'
 import { TradingResponse } from '../models/TradingResponse'
 import { Reject } from '../models/Reject'
+import { MenuSelectCurrencyCoin } from './menuSelectCurrencyCoin'
 
 interface HeaderProps {
   timestamp: string
+  currency: string
+  setCurrency: React.Dispatch<React.SetStateAction<string>>
+  coin: string
+  setCoin: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Header = ({ timestamp }: HeaderProps) => {
+const Header = ({ timestamp, currency, setCurrency, coin, setCoin }: HeaderProps) => {
   const { data } = useQuery({
     queryKey: 'trading',
     refetchInterval: 5000,
@@ -19,20 +24,32 @@ const Header = ({ timestamp }: HeaderProps) => {
         if (res.data.status === 'Ok') {
           return res.data
         }
-
         throw new Error(res.data.errors[0])
       }),
   })
+  const [isOpenMenu, setIsOpenMenu] = useState(true)
   return (
-    <header tw="bg-gray-600 flex justify-between items-center py-2 px-4 text-sm">
-      <div>select</div>
+    <Container>
+      <MenuSelectCurrencyCoin
+        isOpenMenu={isOpenMenu}
+        setIsOpenMenu={setIsOpenMenu}
+        currency={currency}
+        setCurrency={setCurrency}
+        coin={coin}
+        setCoin={setCoin}
+      />
       <div>Spread: {timestamp}</div>
-      <div tw="text-xs">
-        <div tw="text-green-500">max {data?.stats?.h}</div>
-        <div tw="text-red-600">min {data?.stats?.l}</div>
-      </div>
-    </header>
+      <Wrapper>
+        <MaxRate>Highest rate: {data?.stats?.h}</MaxRate>
+        <MinRate>Smallest rate: {data?.stats?.l}</MinRate>
+      </Wrapper>
+    </Container>
   )
 }
 
 export { Header }
+
+const Container = tw.header`bg-gray-600 flex justify-between items-center py-2 pr-4 pl-0 text-sm`
+const Wrapper = tw.div`text-xs flex flex-col justify-end text-right`
+const MaxRate = tw.div`text-green-500`
+const MinRate = tw.div`text-red-600`

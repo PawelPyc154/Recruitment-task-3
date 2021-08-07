@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import tw from 'twin.macro'
 import axios from 'axios'
@@ -24,12 +24,19 @@ const App = () => {
         }),
   })
   // console.log(error)
-
+  const [currency, setCurrency] = useState('PLN')
+  const [coin, setCoin] = useState('BTC')
   return (
     <Container>
       {data && (
         <>
-          <Header timestamp={data?.timestamp} />
+          <Header
+            timestamp={data?.timestamp}
+            currency={currency}
+            setCurrency={setCurrency}
+            coin={coin}
+            setCoin={setCoin}
+          />
           <Wrapper>
             <>
               <Column list={data.buy || []} variant="bid" />
@@ -45,5 +52,5 @@ const App = () => {
 
 export default App
 
-const Container = tw.main`bg-gray-700 mx-auto max-w-5xl mt-20 border border-gray-800`
+const Container = tw.main`bg-white mx-auto max-w-5xl mt-20 border border-gray-800 rounded-3xl overflow-hidden shadow-2xl`
 const Wrapper = tw.div`grid grid-cols-2 divide-x p-1  divide-gray-800`

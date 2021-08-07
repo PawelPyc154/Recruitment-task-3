@@ -41,7 +41,7 @@ const Table = ({ data }: TableProps) => {
     <table {...getTableProps()} tw="text-sm">
       <thead>
         {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()} tw="">
+          <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
               <th {...column.getHeaderProps()} tw="p-3 px-1 text-left">
                 {column.render('Header')}
@@ -54,7 +54,7 @@ const Table = ({ data }: TableProps) => {
         {rows.map((row) => {
           prepareRow(row)
           return (
-            <tr {...row.getRowProps()} tw="">
+            <tr {...row.getRowProps()}>
               {row.cells.map((cell) => (
                 <td {...cell.getCellProps()} tw="p-1 text-left">
                   {cell.render('Cell')}
