@@ -9,30 +9,49 @@ import { Reject } from './models/Reject'
 import { OrderbookResponse } from './models/OrderbookResponse'
 
 const App = () => {
+  const [currencyCurrent, setCurrencyCurrent] = useState('PLN')
+  const [coinCurrent, setCoinCurrent] = useState('BTC')
+
   const { data, isLoading } = useQuery({
-    queryKey: 'orderbook',
+    queryKey: `orderbook${`${coinCurrent}-${currencyCurrent}`}`,
     refetchInterval: 5000,
     queryFn: () =>
       axios
-        .get<OrderbookResponse | Reject>('https://api.bitbay.net/rest/trading/orderbook-limited/BTC-PLN/10')
+        .get<OrderbookResponse | Reject>(
+          `https://api.bitbay.net/rest/trading/orderbook-limited/${`${coinCurrent}-${currencyCurrent}`}/10`
+        )
         .then((res) => {
           if (res.data.status === 'Ok') {
             return res.data
           }
-          // console.log(res.data.errors[0])
           throw new Error(res.data.errors[0])
         }),
   })
 
-  const [currency, setCurrency] = useState('PLN')
-  const [coin, setCoin] = useState('BTC')
-
   return (
     <Container>
-      <Header timestamp={data?.timestamp} currency={currency} setCurrency={setCurrency} coin={coin} setCoin={setCoin} />
+      <Header
+        timestamp={data?.timestamp}
+        currencyCurrent={currencyCurrent}
+        setCurrencyCurrent={setCurrencyCurrent}
+        coinCurrent={coinCurrent}
+        setCoinCurrent={setCoinCurrent}
+      />
       <Wrapper>
-        <Column list={data?.buy} variant="bid" isLoading={isLoading} />
-        <Column list={data?.sell} variant="ask" isLoading={isLoading} />
+        <Column
+          list={data?.buy}
+          variant="bid"
+          isLoading={isLoading}
+          currencyCurrent={currencyCurrent}
+          coinCurrent={coinCurrent}
+        />
+        <Column
+          list={data?.sell}
+          variant="ask"
+          isLoading={isLoading}
+          currencyCurrent={currencyCurrent}
+          coinCurrent={coinCurrent}
+        />
         <ReactQueryDevtools initialIsOpen={false} />
       </Wrapper>
     </Container>

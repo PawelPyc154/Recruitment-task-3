@@ -9,23 +9,26 @@ import { MenuSelectCurrencyCoin } from './menuSelectCurrencyCoin'
 
 interface HeaderProps {
   timestamp?: string
-  currency: string
-  setCurrency: React.Dispatch<React.SetStateAction<string>>
-  coin: string
-  setCoin: React.Dispatch<React.SetStateAction<string>>
+  currencyCurrent: string
+  setCurrencyCurrent: React.Dispatch<React.SetStateAction<string>>
+  coinCurrent: string
+  setCoinCurrent: React.Dispatch<React.SetStateAction<string>>
 }
-
-const Header = ({ timestamp, currency, setCurrency, coin, setCoin }: HeaderProps) => {
+const Header = ({ timestamp, currencyCurrent, setCurrencyCurrent, coinCurrent, setCoinCurrent }: HeaderProps) => {
   const { data } = useQuery({
-    queryKey: 'trading',
+    queryKey: `trading-${coinCurrent}-${currencyCurrent}`,
     refetchInterval: 5000,
     queryFn: () =>
-      axios.get<TradingResponse | Reject>(`https://api.bitbay.net/rest/trading/stats/${'BTC-PLN'}`).then((res) => {
-        if (res.data.status === 'Ok') {
-          return res.data
-        }
-        throw new Error(res.data.errors[0])
-      }),
+      axios
+        .get<TradingResponse | Reject>(
+          `https://api.bitbay.net/rest/trading/stats/${`${coinCurrent}-${currencyCurrent}`}`
+        )
+        .then((res) => {
+          if (res.data.status === 'Ok') {
+            return res.data
+          }
+          throw new Error(res.data.errors[0])
+        }),
   })
   const [isOpenMenu, setIsOpenMenu] = useState(false)
   return (
@@ -33,20 +36,20 @@ const Header = ({ timestamp, currency, setCurrency, coin, setCoin }: HeaderProps
       <MenuSelectCurrencyCoin
         isOpenMenu={isOpenMenu}
         setIsOpenMenu={setIsOpenMenu}
-        currency={currency}
-        setCurrency={setCurrency}
-        coin={coin}
-        setCoin={setCoin}
+        currencyCurrent={currencyCurrent}
+        setCurrencyCurrent={setCurrencyCurrent}
+        coinCurrent={coinCurrent}
+        setCoinCurrent={setCoinCurrent}
       />
       <div tw="flex items-center">Spread: {timestamp || <LoaderBox />}</div>
       <Wrapper>
         <MaxRate>
-          Highest rate:
-          {data?.stats?.h || <LoaderBox tw="h-4" />}
+          Najwyższy kurs od 24h:
+          <span tw="font-bold pl-1 text-green-500"> {data?.stats?.h || <LoaderBox tw="h-4" />} </span>
         </MaxRate>
         <MinRate>
-          Smallest rate:
-          {data?.stats?.l || <LoaderBox tw="h-4" />}
+          Najniższy kurs od 24h:
+          <span tw="font-bold pl-1 text-red-600"> {data?.stats?.l || <LoaderBox tw="h-4" />} </span>
         </MinRate>
       </Wrapper>
     </Container>
@@ -58,5 +61,5 @@ export { Header }
 const Container = tw.header`flex justify-between items-center py-2 pr-4 pl-0 text-sm border-b border-gray-200`
 const Wrapper = tw.div`text-xs flex flex-col items-end text-right`
 const MaxRate = tw.div`text-green-500 flex items-center`
-const MinRate = tw.div`text-red-600 flex items-center`
+const MinRate = tw.div`text-red-500 flex items-center`
 const LoaderBox = tw.div`bg-gray-100 rounded-lg border-4 border-white h-7 animate-pulse w-20`

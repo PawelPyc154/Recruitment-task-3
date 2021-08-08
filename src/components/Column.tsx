@@ -8,9 +8,10 @@ interface ColumnProps {
   list?: OrderbookItem[]
   variant: 'bid' | 'ask'
   isLoading: boolean
+  currencyCurrent: string
+  coinCurrent: string
 }
-
-const Column = ({ list = [], variant, isLoading }: ColumnProps) => (
+const Column = ({ list = [], variant, isLoading, currencyCurrent, coinCurrent }: ColumnProps) => (
   <Container>
     <Heading>
       {variant === 'bid' ? (
@@ -23,7 +24,7 @@ const Column = ({ list = [], variant, isLoading }: ColumnProps) => (
         </>
       )}
     </Heading>
-    <Table data={list} isLoading={isLoading} />
+    <Table data={list} isLoading={isLoading} currencyCurrent={currencyCurrent} coinCurrent={coinCurrent} />
   </Container>
 )
 

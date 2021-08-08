@@ -6,8 +6,10 @@ import 'twin.macro'
 interface TableProps {
   data: OrderbookItem[]
   isLoading: boolean
+  currencyCurrent: string
+  coinCurrent: string
 }
-const Table = ({ data, isLoading }: TableProps) => {
+const Table = ({ data, isLoading, currencyCurrent, coinCurrent }: TableProps) => {
   const columns: Column<OrderbookItem>[] = React.useMemo(
     () => [
       {
@@ -17,13 +19,13 @@ const Table = ({ data, isLoading }: TableProps) => {
         Cell: ({ value }) => Number(value).toFixed(6),
       },
       {
-        Header: 'Ilość BTC',
+        Header: `Ilość ${coinCurrent}`,
         accessor: 'ca',
         width: 90,
         Cell: ({ value }) => Number(value).toFixed(6),
       },
       {
-        Header: 'Suma PLN',
+        Header: `Suma ${currencyCurrent}`,
         accessor: 'pa',
         width: 100,
         Cell: ({ row }) => (Number(row.original.ca) * Number(row.original.ra)).toFixed(6),
@@ -35,7 +37,7 @@ const Table = ({ data, isLoading }: TableProps) => {
         Cell: ({ value }) => Number(value),
       },
     ],
-    []
+    [coinCurrent, currencyCurrent]
   )
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
     {
@@ -60,10 +62,10 @@ const Table = ({ data, isLoading }: TableProps) => {
       </thead>
       <tbody {...getTableBodyProps()}>
         {isLoading &&
-          Array.from({ length: 10 }, (v, i) => i).map(() => (
-            <tr>
-              {Array.from({ length: 4 }, (v, i) => i).map(() => (
-                <td tw="bg-gray-100 rounded-lg border-4 border-white h-7 animate-pulse" />
+          Array.from({ length: 10 }, (v, i) => i).map((item) => (
+            <tr tw="bg-gray-100 rounded-lg border-4 border-white h-7 animate-pulse" key={item}>
+              {Array.from({ length: 4 }, (v, i) => i).map((i) => (
+                <td key={i} />
               ))}
             </tr>
           ))}
