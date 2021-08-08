@@ -101,8 +101,8 @@ const MenuSelectCurrencyCoin = ({
 
 export { MenuSelectCurrencyCoin }
 
-const Container = tw.div`relative select-none`
-const Button = tw.button`flex justify-center items-center py-2 px-4 hover:bg-gray-100 focus:(outline-none bg-gray-100) `
+const Container = tw.div`relative select-none `
+const Button = tw.button`flex justify-center items-center py-2 px-4 hover:bg-gray-100 focus:(outline-none ring-2)`
 const Images = tw.img`h-3 ml-2`
 const MenuWrapper = tw.div`absolute bg-white w-96 text-black transform translate-y-full -bottom-2 left-0 p-3 shadow-xl border border-gray-200 z-40`
 const Label = tw.div`text-xs font-bold mb-2 font-sans text-gray-600`
