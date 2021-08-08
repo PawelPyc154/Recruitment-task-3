@@ -21,7 +21,7 @@ const Table = ({ data, isLoading, currencyCurrent, coinCurrent }: TableProps) =>
       {
         Header: `Ilość ${coinCurrent}`,
         accessor: 'ca',
-        width: 90,
+        width: 70,
         Cell: ({ value }) => Number(value).toFixed(6),
       },
       {
@@ -48,7 +48,7 @@ const Table = ({ data, isLoading, currencyCurrent, coinCurrent }: TableProps) =>
   )
 
   return (
-    <table {...getTableProps()} tw="text-sm">
+    <table {...getTableProps()} tw="text-xs md:text-sm">
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>

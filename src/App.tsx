@@ -60,5 +60,5 @@ const App = () => {
 
 export default App
 
-const Container = tw.main`bg-white mx-auto max-w-5xl lg:mt-20 rounded-xl overflow-hidden shadow-2xl `
-const Wrapper = tw.div`grid lg:grid-cols-2 divide-x divide-gray-200`
+const Container = tw.main`bg-white mx-auto max-w-5xl lg:mt-20 rounded-xl overflow-hidden shadow-2xl`
+const Wrapper = tw.div`grid lg:grid-cols-2 divide-x divide-gray-200 overflow-x-auto md:overflow-visible`

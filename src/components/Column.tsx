@@ -30,5 +30,5 @@ const Column = ({ list = [], variant, isLoading, currencyCurrent, coinCurrent }:
 
 export { Column }
 
-const Container = tw.section`p-2 flex flex-col`
+const Container = tw.section`p-1 md:p-2 flex flex-col`
 const Heading = tw.header`mx-auto block w-auto`

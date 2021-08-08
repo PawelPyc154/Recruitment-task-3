@@ -45,11 +45,14 @@ const Header = ({ timestamp, currencyCurrent, setCurrencyCurrent, coinCurrent, s
       <Wrapper>
         <MaxRate>
           Najwyższy kurs od 24h:
-          <span tw="font-bold pl-1 text-green-500"> {data?.stats?.h || <LoaderBox tw="h-4" />} </span>
+          <span tw="font-bold pl-1 text-green-500">
+            {' '}
+            {Number(data?.stats?.h).toFixed(2) || <LoaderBox tw="h-4" />}{' '}
+          </span>
         </MaxRate>
         <MinRate>
           Najniższy kurs od 24h:
-          <span tw="font-bold pl-1 text-red-600"> {data?.stats?.l || <LoaderBox tw="h-4" />} </span>
+          <span tw="font-bold pl-1 text-red-600"> {Number(data?.stats?.l).toFixed(2) || <LoaderBox tw="h-4" />} </span>
         </MinRate>
       </Wrapper>
     </Container>
@@ -58,7 +61,7 @@ const Header = ({ timestamp, currencyCurrent, setCurrencyCurrent, coinCurrent, s
 
 export { Header }
 
-const Container = tw.header`flex justify-between items-center py-2 pr-4 pl-0 text-sm border-b border-gray-200`
+const Container = tw.header`flex flex-col md:flex-row justify-between items-center py-2 pr-4 pl-0 text-xs md:text-sm border-b border-gray-200`
 const Wrapper = tw.div`text-xs flex flex-col items-end text-right`
 const MaxRate = tw.div`text-green-500 flex items-center`
 const MinRate = tw.div`text-red-500 flex items-center`

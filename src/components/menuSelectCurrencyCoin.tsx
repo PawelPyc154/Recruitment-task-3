@@ -101,10 +101,10 @@ const MenuSelectCurrencyCoin = ({
 
 export { MenuSelectCurrencyCoin }
 
-const Container = tw.div`relative select-none `
+const Container = tw.div`md:relative select-none `
 const Button = tw.button`flex justify-center items-center py-2 px-4 hover:bg-gray-100 focus:(outline-none ring-2)`
 const Images = tw.img`h-3 ml-2`
-const MenuWrapper = tw.div`absolute bg-white w-96 text-black transform translate-y-full -bottom-2 left-0 p-3 shadow-xl border border-gray-200 z-40`
+const MenuWrapper = tw.div`absolute bg-white w-screen text-black top-11  md:(top-auto transform translate-y-full -bottom-2 w-96) left-0 p-3 shadow-xl border border-gray-200 z-40`
 const Label = tw.div`text-xs font-bold mb-2 font-sans text-gray-600`
 const CurrancyButton = styled.button(({ isCurrent }: { isCurrent: boolean }) => [
   tw`bg-gray-200 py-1 px-2 rounded-sm mr-2 mb-2 hover:(bg-yellow-300 text-white) focus:(outline-none ring-2)`,
