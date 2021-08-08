@@ -9,7 +9,7 @@ import { Reject } from './models/Reject'
 import { OrderbookResponse } from './models/OrderbookResponse'
 
 const App = () => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: 'orderbook',
     refetchInterval: 5000,
     queryFn: () =>
@@ -23,35 +23,23 @@ const App = () => {
           throw new Error(res.data.errors[0])
         }),
   })
-  // console.log(error)
 
   const [currency, setCurrency] = useState('PLN')
   const [coin, setCoin] = useState('BTC')
+
   return (
     <Container>
-      {data && (
-        <>
-          <Header
-            timestamp={data?.timestamp}
-            currency={currency}
-            setCurrency={setCurrency}
-            coin={coin}
-            setCoin={setCoin}
-          />
-          <Wrapper>
-            <>
-              <Column list={data.buy || []} variant="bid" />
-              <Column list={data.sell || []} variant="ask" />
-            </>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </Wrapper>
-        </>
-      )}
+      <Header timestamp={data?.timestamp} currency={currency} setCurrency={setCurrency} coin={coin} setCoin={setCoin} />
+      <Wrapper>
+        <Column list={data?.buy} variant="bid" isLoading={isLoading} />
+        <Column list={data?.sell} variant="ask" isLoading={isLoading} />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </Wrapper>
     </Container>
   )
 }
 
 export default App
 
-const Container = tw.main`bg-white mx-auto max-w-5xl lg:mt-20 rounded-xl overflow-hidden shadow-2xl border border-gray-200`
+const Container = tw.main`bg-white mx-auto max-w-5xl lg:mt-20 rounded-xl overflow-hidden shadow-2xl `
 const Wrapper = tw.div`grid lg:grid-cols-2 divide-x divide-gray-200`

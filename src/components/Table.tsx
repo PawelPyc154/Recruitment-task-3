@@ -1,41 +1,49 @@
 import React from 'react'
-import { Column, useTable } from 'react-table'
+import { Column, useFlexLayout, useTable } from 'react-table'
 import { OrderbookItem } from '../models/OrderbookItem'
 import 'twin.macro'
 
 interface TableProps {
   data: OrderbookItem[]
+  isLoading: boolean
 }
-const Table = ({ data }: TableProps) => {
+const Table = ({ data, isLoading }: TableProps) => {
   const columns: Column<OrderbookItem>[] = React.useMemo(
     () => [
       {
         Header: 'Kurs',
         accessor: 'ra',
+        width: 90,
         Cell: ({ value }) => Number(value).toFixed(6),
       },
       {
         Header: 'Ilość BTC',
         accessor: 'ca',
+        width: 90,
         Cell: ({ value }) => Number(value).toFixed(6),
       },
       {
         Header: 'Suma PLN',
         accessor: 'pa',
+        width: 100,
         Cell: ({ row }) => (Number(row.original.ca) * Number(row.original.ra)).toFixed(6),
       },
       {
         Header: 'Liczba ofert',
         accessor: 'co',
+        width: 85,
         Cell: ({ value }) => Number(value),
       },
     ],
     []
   )
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
-    columns,
-    data,
-  })
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+    {
+      columns,
+      data,
+    },
+    useFlexLayout
+  )
 
   return (
     <table {...getTableProps()} tw="text-sm">
@@ -51,6 +59,14 @@ const Table = ({ data }: TableProps) => {
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
+        {isLoading &&
+          Array.from({ length: 10 }, (v, i) => i).map(() => (
+            <tr>
+              {Array.from({ length: 4 }, (v, i) => i).map(() => (
+                <td tw="bg-gray-100 rounded-lg border-4 border-white h-7 animate-pulse" />
+              ))}
+            </tr>
+          ))}
         {rows.map((row) => {
           prepareRow(row)
           return (

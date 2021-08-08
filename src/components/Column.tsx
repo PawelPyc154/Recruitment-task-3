@@ -5,10 +5,12 @@ import { OrderbookItem } from '../models/OrderbookItem'
 import Table from './Table'
 
 interface ColumnProps {
-  list: OrderbookItem[]
+  list?: OrderbookItem[]
   variant: 'bid' | 'ask'
+  isLoading: boolean
 }
-const Column = ({ list, variant }: ColumnProps) => (
+
+const Column = ({ list = [], variant, isLoading }: ColumnProps) => (
   <Container>
     <Heading>
       {variant === 'bid' ? (
@@ -21,7 +23,7 @@ const Column = ({ list, variant }: ColumnProps) => (
         </>
       )}
     </Heading>
-    <Table data={list} />
+    <Table data={list} isLoading={isLoading} />
   </Container>
 )
 

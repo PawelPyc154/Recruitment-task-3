@@ -24,6 +24,8 @@
     "rules": {
         "no-use-before-define": "off",
         "@typescript-eslint/no-unused-vars": "error",
+        "react/require-default-props": "off",
+        "operator-linebreak": "off",
         "react/jsx-filename-extension": [
             "warn",
             {
